@@ -28,7 +28,6 @@ services:
     env_file: ./.env
     environment:
       DATABASE_URI: postgresql://user:password@source-database:5432/chinook
-      VEILSTREAM_API: https://api.veilstream.com
     depends_on:
       source-database:
         condition: service_healthy
