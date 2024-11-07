@@ -8,23 +8,16 @@ services:
       POSTGRES_DB: db
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
-    ports:
-      - "5433:5432"
     volumes:
-      - ./sample_data/Chinook_PostgreSql.sql:/docker-entrypoint-initdb.d/Chinook_PostgreSql.sql
-      - ./sample_data/Chinook_PostgreSql_AutoIncrementPKs.sql:/docker-entrypoint-initdb.d/Chinook_PostgreSql_AutoIncrementPKs.sql
-      - ./sample_data/Chinook_PostgreSql_SerialPKs.sql:/docker-entrypoint-initdb.d/Chinook_PostgreSql_SerialPKs.sql
-      - ./sample_data/multiple_users.sql:/docker-entrypoint-initdb.d/multiple_users.sql
-      - /.source-database-data:/var/lib/postgresql/data
+      - ./sample_data/01_Chinook_PostgreSql.sql:/docker-entrypoint-initdb.d/01_Chinook_PostgreSql.sql
+      - ./sample_data/02_multiple_users.sql:/docker-entrypoint-initdb.d/02_multiple_users.sql
+      - ./.source-database-data:/var/lib/postgresql/data
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U user -d chinook -h localhost -p 5432" ]
 
   veilstream-postgres-proxy:
     container_name: veilstream-postgres-proxy
     image: veilstream/veilstream-postgres-proxy:latest
-    ports:
-      - "5432:5432"
-      - "80:80"
     env_file: ./.env
     environment:
       DATABASE_URI: postgresql://user:password@source-database:5432/chinook
