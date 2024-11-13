@@ -21,6 +21,8 @@ services:
     env_file: ./.env
     environment:
       DATABASE_URI: postgresql://user:password@source-database:5432/chinook
+    ports:
+      - "5432:5432"
     depends_on:
       source-database:
         condition: service_healthy
