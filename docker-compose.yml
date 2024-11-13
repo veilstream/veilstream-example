@@ -8,6 +8,8 @@ services:
       POSTGRES_DB: db
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
+    ports:
+      - "5433:5432"
     volumes:
       - ./sample_data/01_Chinook_PostgreSql.sql:/docker-entrypoint-initdb.d/01_Chinook_PostgreSql.sql
       - ./sample_data/02_multiple_users.sql:/docker-entrypoint-initdb.d/02_multiple_users.sql
